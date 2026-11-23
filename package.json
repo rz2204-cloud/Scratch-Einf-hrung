@@ -1,0 +1,13 @@
+{
+  "name": "scratch-labor-7",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.2" },
+  "scripts": {
+    "prepare:lab": "node scripts/prepare.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "node scripts/browser-test.mjs"
+  },
+  "devDependencies": { "playwright-core": "1.61.0" }
+}

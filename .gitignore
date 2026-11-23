@@ -1,0 +1,8 @@
+/public/vendor/
+/public/assets/start.sb3
+/scratch-gui-*.tgz
+/scratch-package-metadata.tmp
+/.qa-profile/
+/node_modules/
+/playwright-core-*.tgz
+/screenshots/diagnose.png

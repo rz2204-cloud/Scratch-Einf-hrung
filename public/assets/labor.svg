@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360">
+  <defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#d9e4f8"/></pattern></defs>
+  <path d="M0 0h480v360H0z" fill="#f0f5ff"/>
+  <path d="M0 0h480v360H0z" fill="url(#grid)"/>
+  <rect x="36" y="121" width="408" height="120" rx="25" fill="#e4edfc" stroke="#b7c7e7" stroke-width="2"/>
+  <path d="M57 181h366" stroke="#92aadb" stroke-width="2" stroke-dasharray="6 8"/>
+  <circle cx="135" cy="181" r="49" fill="#d8e5ff" stroke="#a8bee9" stroke-width="2"/>
+  <circle cx="346" cy="181" r="39" fill="#eef8db" stroke="#92b64f" stroke-width="2" stroke-dasharray="5 5"/>
+  <path d="M346 162v38m-19-19h38" stroke="#97b95b" stroke-width="2"/>
+  <rect x="32" y="32" width="116" height="30" rx="7" fill="#20365d"/>
+  <text x="90" y="52" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="bold" letter-spacing="2" fill="#eaf2ff">TESTSTRECKE</text>
+</svg>

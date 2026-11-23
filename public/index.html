@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#eef2f8">
+  <meta name="description" content="Deine erste Mission im Scratch-Labor für die 7. Klasse.">
+  <title>Scratch-Labor 7 · Mission 1</title>
+  <link rel="icon" href="./assets/byte.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./labor.css">
+  <script type="module" src="./labor.js"></script>
+</head>
+<body>
+  <a class="skip" href="#mission">Zur aktuellen Aufgabe</a>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">⌘</span><span>Scratch<span class="brand-accent">Labor</span> <small>7</small></span></div>
+      <div class="files">
+        <button id="open" class="button outline" type="button" disabled><span aria-hidden="true">↥</span> Projekt laden</button>
+        <button id="save" class="button primary" type="button" disabled><span aria-hidden="true">↧</span> Projekt speichern</button>
+        <input type="file" id="file" accept=".sb3" hidden>
+      </div>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="hero" aria-labelledby="title">
+      <div>
+        <p class="eyebrow"><span></span> MISSION 01</p>
+        <h1 id="title">Willkommen im<br>Scratch-Labor<span>.</span></h1>
+        <p>Bring deinen Laborroboter in Bewegung und starte dein erstes Scratch-Programm.</p>
+      </div>
+      <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="art-tile art-event">⚑</div><div class="art-tile art-motion">↻</div><div class="art-tile art-result">✓</div><span class="spark one">✦</span><span class="spark two">+</span><span class="spark three">+</span></div>
+    </section>
+    <div class="views" aria-label="Laboransicht">
+      <button id="show-mission" type="button" aria-pressed="true">Lernbegleiter</button>
+      <button id="show-editor" type="button" aria-pressed="false">Editor &amp; Bühne</button>
+    </div>
+    <div class="status-line" id="file-status" role="status"></div>
+    <div class="lab" data-view="mission">
+      <section class="panel mission" id="mission" aria-labelledby="mission-label">
+        <div class="panel-head"><h2 id="mission-label"><span class="head-icon" aria-hidden="true">▤</span>Lernbegleiter</h2><span class="count" id="count"></span></div>
+        <div class="mission-inner">
+          <progress id="progress" max="6" value="0" aria-label="Abgeschlossene Aufgaben"></progress>
+          <nav id="steps" aria-label="Aufgaben"></nav>
+          <div class="task" aria-labelledby="step-title">
+            <p class="step-label" id="step-label"></p>
+            <h3 tabindex="-1" id="step-title"></h3>
+            <p id="instruction"></p>
+            <button id="work" class="button outline work" type="button">Zum Editor und zur Bühne</button>
+            <p id="feedback" role="status" class="feedback" hidden></p>
+            <details id="hint"><summary>Hilfe anzeigen</summary><p id="hint-text"></p><button class="text-button" id="more" type="button">Nächster Tipp</button></details>
+          </div>
+          <div class="task-actions">
+            <button id="back" class="button outline" type="button">Zurück</button>
+            <button id="next" class="button primary" type="button">Loslegen</button>
+          </div>
+        </div>
+      </section>
+      <section class="panel workspace" id="workspace" aria-labelledby="workspace-label">
+        <div class="panel-head"><h2 id="workspace-label" tabindex="-1"><span class="head-icon" aria-hidden="true">‹›</span>Editor &amp; Bühne</h2><span id="editor-status" class="engine" role="status">Editor lädt …</span></div>
+        <div class="editor-scroll" tabindex="0" aria-label="Scratch-Arbeitsfläche">
+          <div id="editor"></div>
+        </div>
+        <details id="assist" class="assist">
+          <summary>Mit Taste oder Tipp programmieren</summary>
+          <div class="assist-controls">
+            <button id="flag" class="button outline" type="button" disabled>Startereignis</button>
+            <label>Schritte <input id="distance" aria-label="Schritte" type="number" value="10" min="-480" max="480"></label>
+            <button id="move" class="button outline" type="button" disabled>Bewegung</button>
+            <button id="try-move" class="button outline" type="button" disabled>Einzelblock testen</button>
+            <button id="change" class="button outline" type="button" disabled>Schrittzahl ändern</button>
+            <button id="turn" class="button outline" type="button" disabled>Drehung 15°</button>
+            <button id="run" class="button primary" type="button" disabled>Start</button>
+            <button id="stop" class="button outline" type="button" disabled>Stopp</button>
+          </div>
+          <p id="assist-status" role="status">Die Buttons erstellen echte Scratch-Blöcke für die ausgewählte Figur. Wähle zuerst die Figur unter der Bühne.</p>
+        </details>
+      </section>
+    </div>
+    <footer><span>Scratch-Labor 7</span><span>Mittelschule · Informatik</span></footer>
+  </main>
+</body>
+</html>
