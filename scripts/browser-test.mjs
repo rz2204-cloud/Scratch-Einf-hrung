@@ -29,13 +29,25 @@ try {
   const errors = [];
   const failed = new Set();
   const external = new Set();
+  const offlineCostumeMessages = new Set();
+  let offline = false;
   const monitor = page => {
     page.on('response', response => {
       if (response.status() >= 400) failed.add(`${response.status()} ${response.url()}`);
     });
     page.on('pageerror', error => errors.push(error.message));
     page.on('console', message => {
-      if (message.type() === 'error') errors.push(message.text());
+      if (message.type() !== 'error') return;
+      const source = message.location().url.replace(origin, '');
+      const description = `${message.text()} ${source}`.trim();
+      // Scratch preloads the optional costume editor in an isolated iframe.
+      const costumeResource = /^\/static\/assets\/(?:paper-core\.min|paper-import|runner)\.[a-f0-9]+\.js\?resource$/;
+      if (offline && page === desktopPage && costumeResource.test(source)
+        && /net::ERR_(CONNECTION_REFUSED|INTERNET_DISCONNECTED)/.test(message.text())) {
+        offlineCostumeMessages.add(source);
+      } else {
+        errors.push(description);
+      }
     });
     page.on('request', request => {
       if (request.url().startsWith('http') && !request.url().startsWith(origin + '/')) external.add(new URL(request.url()).origin);
@@ -76,7 +88,20 @@ try {
     assert.equal(await p.locator('#hint').getAttribute('open'), '');
     await press(next);
     assert.equal(await p.locator('#hint').getAttribute('open'), null);
+    assert.equal(await p.locator('#step-title').innerText(), 'Lerne die Scratch-Oberfläche kennen');
+    for (const [id, name] of [['stage', 'Bühne'], ['sprites', 'Figurenliste'], ['blocks', 'Blockpalette'], ['scripts', 'Skriptbereich']]) {
+      await press(p.locator(`[data-area="${id}"]`));
+      assert.match(await p.locator('#area-note').innerText(), new RegExp(`^${name}`));
+      const marker = await p.locator('#area-marker').boundingBox();
+      assert.ok(marker?.width > 25 && marker.height > 15);
+    }
+    await p.screenshot({ path: 'screenshots/orientierung.png', fullPage: true });
+    await p.locator('#area-answer').selectOption('blocks');
     await press(next);
+    assert.match(await p.locator('#feedback').innerText(), /freie Arbeitsfläche/);
+    await p.locator('#area-answer').selectOption('scripts');
+    await press(next);
+    assert.equal(await p.locator('#area-note').isHidden(), true);
     await press(next);
     assert.match(await p.locator('#feedback').innerText(), /zuerst einen Geh-Block/);
 
@@ -138,9 +163,11 @@ try {
     await ip.goto(origin);
     await ready(ip);
     await ip.locator('#next').tap();
-    await ip.locator('#work').tap();
+    await ip.locator('[data-area="stage"]').tap();
     await ip.locator('#workspace').waitFor();
     assert.equal(await ip.locator('#show-editor').getAttribute('aria-pressed'), 'true');
+    assert.match(await ip.locator('#area-note').innerText(), /^Bühne/);
+    await ip.locator('#area-marker').waitFor();
     assert.equal(await ip.evaluate(() => document.documentElement.scrollWidth), 820);
     await ip.locator('#assist summary').tap();
     await button(ip, 'move').tap();
@@ -157,6 +184,7 @@ try {
     await ip.screenshot({ path: 'screenshots/ipad-querformat.png', fullPage: true });
 
     await p.waitForFunction(() => navigator.serviceWorker.controller !== null);
+    offline = true;
     await desktop.setOffline(true);
     server.kill();
     await p.reload();
@@ -168,6 +196,7 @@ try {
     assert.deepEqual(errors, [], 'Browserkonsole');
     assert.deepEqual([...failed], [], 'HTTP-Fehler');
     assert.deepEqual([...external], [], 'Externe Anfragen im Mission-1-Lernweg');
+    if (offlineCostumeMessages.size) console.log('Offline-Hinweis: Der optionale Kostümeditor benötigt den Server.');
     console.log('Bestanden: nativer Drag, Tastatur, sechs Aufgaben, VM-Ausführung, SB3-Rundlauf, iPad-Touchprofil in beiden Formaten und Offline-Neuladen bei gestopptem Server.');
   }
 } finally {

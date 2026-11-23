@@ -1,4 +1,4 @@
-import { mission } from './mission.js';
+import { areas, mission } from './mission.js';
 import { openScratch } from './scratch.js';
 
 const byId = id => document.getElementById(id);
@@ -16,6 +16,78 @@ let hintIndex = 0;
 let scratch;
 let busy = true;
 let filename = 'Mission-1-Byte.sb3';
+let selectedArea;
+const editorScroll = document.querySelector('.editor-scroll');
+const selectors = {
+  stage: 'canvas',
+  sprites: '[class*="sprite-selector_items-wrapper"]',
+  blocks: '.blocklyToolboxFlyout',
+  scripts: '.blocklyMainBackground'
+};
+
+function markArea() {
+  const marker = byId('area-marker');
+  const editor = byId('editor');
+  const target = selectedArea && editor.querySelector(selectors[selectedArea.id]);
+  const bounds = target?.getBoundingClientRect();
+  if (!bounds?.width || !bounds.height) {
+    marker.hidden = true;
+    return;
+  }
+  const frame = editorScroll.getBoundingClientRect();
+  const left = selectedArea.id === 'scripts'
+    ? Math.max(bounds.left, editor.querySelector(selectors.blocks)?.getBoundingClientRect().right ?? bounds.left)
+    : bounds.left;
+  Object.assign(marker.style, {
+    left: `${left - frame.left + editorScroll.scrollLeft}px`,
+    top: `${bounds.top - frame.top + editorScroll.scrollTop}px`,
+    width: `${Math.max(0, bounds.right - left)}px`,
+    height: `${bounds.height}px`
+  });
+  marker.hidden = false;
+}
+
+function explainArea(area) {
+  selectedArea = area;
+  const note = byId('area-note');
+  note.hidden = !area;
+  note.textContent = area ? `${area.name} · ${area.description}` : '';
+  for (const button of byId('areas').querySelectorAll('button')) {
+    button.setAttribute('aria-pressed', String(button.dataset.area === area?.id));
+  }
+  markArea();
+}
+
+for (const area of areas) {
+  const row = document.createElement('li');
+  const button = document.createElement('button');
+  const title = document.createElement('strong');
+  const description = document.createElement('span');
+  button.type = 'button';
+  button.className = 'button outline';
+  button.dataset.area = area.id;
+  button.setAttribute('aria-pressed', 'false');
+  title.textContent = area.name;
+  description.textContent = area.description;
+  button.append(title, description);
+  row.append(button);
+  byId('areas').append(row);
+  button.onclick = () => {
+    if (area.id === 'blocks' || area.id === 'scripts') {
+      const codeTab = byId('editor').querySelector('[role="tab"]');
+      if (codeTab?.getAttribute('aria-selected') === 'false') codeTab.click();
+    }
+    explainArea(area);
+    view('editor');
+    requestAnimationFrame(() => {
+      markArea();
+      if (!byId('area-marker').hidden) byId('area-marker').scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
+  };
+}
+const orientationResize = new ResizeObserver(markArea);
+orientationResize.observe(editorScroll);
+window.addEventListener('resize', () => requestAnimationFrame(markArea));
 
 function remember() {
   try { localStorage.setItem(progressKey, JSON.stringify({ index, complete: [...complete] })); } catch { /* Session continues. */ }
@@ -49,6 +121,8 @@ function showStep(step, focus = true) {
   byId('step-label').textContent = `AUFGABE ${index + 1} VON ${mission.length}`;
   byId('step-title').textContent = task.title;
   byId('instruction').textContent = task.instruction;
+  byId('orientation').hidden = index !== 1;
+  if (index !== 1) explainArea(null);
   byId('work').hidden = index === 0;
   byId('back').disabled = index === 0;
   byId('next').textContent = task.action ?? 'Prüfen und weiter';
@@ -84,6 +158,11 @@ byId('back').onclick = () => showStep(index - 1);
 byId('more').onclick = () => { hintIndex += 1; displayHint(); };
 byId('next').onclick = () => {
   const task = mission[index];
+  if (index === 1 && !complete.has(index) && byId('area-answer').value !== 'scripts') {
+    feedback('Schau noch einmal auf die freie Arbeitsfläche neben der Blockpalette. Wie heißt sie?');
+    byId('area-answer').focus();
+    return;
+  }
   if (task.check && !complete.has(index)) {
     if (busy || !scratch) return feedback('Warte kurz, bis der Editor bereit ist.');
     if (!scratch.has(task.check)) return feedback(task.wait);
@@ -193,6 +272,7 @@ async function initialize() {
   byId('editor-status').textContent = 'Scratch bereit';
   byId('editor-status').dataset.ready = 'true';
   setBusy(false);
+  markArea();
 }
 
 const timeout = setTimeout(() => {

@@ -27,7 +27,7 @@
       <div>
         <p class="eyebrow"><span></span> MISSION 01</p>
         <h1 id="title">Willkommen im<br>Scratch-Labor<span>.</span></h1>
-        <p>Bring deinen Laborroboter in Bewegung und starte dein erstes Scratch-Programm.</p>
+        <p>Erkunde die Scratch-Oberfläche und starte dein erstes Programm mit Laborroboter Byte.</p>
       </div>
       <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="art-tile art-event">⚑</div><div class="art-tile art-motion">↻</div><div class="art-tile art-result">✓</div><span class="spark one">✦</span><span class="spark two">+</span><span class="spark three">+</span></div>
     </section>
@@ -46,6 +46,16 @@
             <p class="step-label" id="step-label"></p>
             <h3 tabindex="-1" id="step-title"></h3>
             <p id="instruction"></p>
+            <div id="orientation" hidden>
+              <ul id="areas"></ul>
+              <label for="area-answer">Wo setzt du die Blöcke zu einem Skript zusammen?</label>
+              <select id="area-answer">
+                <option value="">Wähle einen Bereich</option>
+                <option value="stage">Auf der Bühne</option>
+                <option value="blocks">In der Blockpalette</option>
+                <option value="scripts">Im Skriptbereich</option>
+              </select>
+            </div>
             <button id="work" class="button outline work" type="button">Zum Editor und zur Bühne</button>
             <p id="feedback" role="status" class="feedback" hidden></p>
             <details id="hint"><summary>Hilfe anzeigen</summary><p id="hint-text"></p><button class="text-button" id="more" type="button">Nächster Tipp</button></details>
@@ -58,8 +68,10 @@
       </section>
       <section class="panel workspace" id="workspace" aria-labelledby="workspace-label">
         <div class="panel-head"><h2 id="workspace-label" tabindex="-1"><span class="head-icon" aria-hidden="true">‹›</span>Editor &amp; Bühne</h2><span id="editor-status" class="engine" role="status">Editor lädt …</span></div>
+        <p id="area-note" class="area-note" role="status" hidden></p>
         <div class="editor-scroll" tabindex="0" aria-label="Scratch-Arbeitsfläche">
           <div id="editor"></div>
+          <div id="area-marker" aria-hidden="true" hidden></div>
         </div>
         <details id="assist" class="assist">
           <summary>Mit Taste oder Tipp programmieren</summary>

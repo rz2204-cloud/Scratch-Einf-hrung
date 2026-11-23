@@ -1,4 +1,4 @@
-const cacheName = 'scratch-labor-7-v5';
+const cacheName = 'scratch-labor-7-v6';
 const core = ['./', './labor.css', './labor.js', './mission.js', './scratch.js', './assets/start.sb3',
   './assets/byte.svg', './vendor/dist/scratch-gui-standalone.js'];
 

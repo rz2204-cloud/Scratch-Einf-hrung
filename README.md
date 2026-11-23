@@ -19,7 +19,7 @@ Für iPads im selben Schulnetz starte den Server mit `node scripts/serve.mjs --l
 
 ## Im Unterricht
 
-1. Mit **Loslegen** starten und die Bühne, die Figur und den Reiter **Skripte** erkunden.
+1. Mit **Loslegen** starten. Bühne, Figurenliste, Blockpalette und Skriptbereich im Editor markieren und die kurze Frage zum Skriptbereich beantworten.
 2. Einen Bewegungsblock ziehen und direkt ausführen. Danach das Startereignis mit der grünen Flagge verbinden.
 3. Das Programm mit zwei verschiedenen Schrittzahlen ausführen. Zum Schluss eine Drehung ergänzen und die Reihenfolge erproben.
 4. Mit **Projekt speichern** eine `.sb3`-Datei herunterladen. Mit **Projekt laden** kann Scratch dieselbe Datei später öffnen.
@@ -53,20 +53,20 @@ Der automatisierte Lauf unter Windows mit Chrome und Playwright ergab:
 | Prüfung | Ergebnis |
 | --- | --- |
 | Desktop bei 1440 × 1000 | Bewegungsblock nativ gezogen. Startereignis, Schrittzahl und Drehung ergänzt. Die Position und Richtung der Figur änderten sich beim Start wie erwartet. Alle sechs Aufgaben abgeschlossen. |
-| Tastatur und Hilfe | Hilfe und Weiter-Schaltflächen per Eingabetaste bedient. Die Eingabe eines fehlenden Blocks wurde mit einem konkreten Hinweis beantwortet. |
+| Orientierung, Tastatur und Hilfe | Alle vier Bereiche per Eingabetaste im echten Editor markiert. Hilfe, Verständnisfrage und Weiter-Schaltflächen bedient. Bei einer falschen Zuordnung und einem fehlenden Block erschien jeweils ein Hinweis. |
 | Lokale Projektdatei | .sb3 heruntergeladen, Seite neu geladen, Datei geöffnet und das gespeicherte Skript erneut ausgeführt. |
 | iPad-Emulation | Touchbedienung bei 820 × 1180, Umschaltung ins Querformat bei 1180 × 820. Einzelblock und Flaggenstapel per Touch ausgeführt. |
 | Offline | Netzwerk im Testbrowser deaktiviert und Testserver gestoppt. Seite erneut geöffnet, .sb3 geladen und Programm gestartet. |
-| Browserdiagnostik | Keine Konsolen- oder HTTP-Fehler und keine externen Anfragen im getesteten Lernweg. |
+| Browserdiagnostik | Keine HTTP-Fehler oder externen Anfragen im Lernweg. Bei gestopptem Server meldete Scratch fehlende Dateien für die Vorbereitung des optionalen Kostümeditors. Die Mission lief weiter. |
 
-Aufnahmen aus dem Testlauf: [Desktop](screenshots/desktop.png) · [Abgeschlossene Mission](screenshots/mission-abgeschlossen.png) · [iPad hoch](screenshots/ipad-portrait.png) · [iPad quer](screenshots/ipad-querformat.png).
+Aufnahmen aus dem Testlauf: [Desktop](screenshots/desktop.png) · [Orientierung](screenshots/orientierung.png) · [Abgeschlossene Mission](screenshots/mission-abgeschlossen.png) · [iPad hoch](screenshots/ipad-portrait.png) · [iPad quer](screenshots/ipad-querformat.png).
 
 ## Grenzen und nächste Schritte
 
 - Der Prototyp enthält Mission 1. Neuladen öffnet das Startprojekt. Der Lernfortschritt bleibt im Browser, das Schülerprojekt bleibt über die gespeicherte `.sb3`-Datei erhalten.
 - Die Lernprüfung ist auf kurze, gerade Blockstapel dieser Mission ausgelegt. Sie beobachtet die ersten 240 ms nach der grünen Flagge. Freie Programme mit Wartezeiten, Schleifen oder anderen Startereignissen werden in Scratch ausgeführt, können aber durch diese Missionsprüfung unberücksichtigt bleiben.
 - Die ergänzenden Tasten decken die Missionsblöcke ab. Der volle Scratch-Editor behält seine ursprüngliche Bedienung. Auf sehr schmalen Geräten kann die Arbeitsfläche innen horizontal scrollen.
-- Scratch-Bibliotheken und Erweiterungen können beim Öffnen weitere Ressourcen benötigen. Der Offline-Test umfasst die Mission und die lokale Projektdatei. Browserdaten können nach Speicherdruck oder durch Schulrichtlinien gelöscht werden.
+- Scratch-Bibliotheken und Erweiterungen können beim Öffnen weitere Ressourcen benötigen. Das Vorladen des Kostümeditors benötigt in Chrome einen erreichbaren Server. Der Offline-Test umfasst die Mission und die lokale Projektdatei. Browserdaten können nach Speicherdruck oder durch Schulrichtlinien gelöscht werden.
 - Vor der nächsten Mission sollte eine Klasse den gesamten Lernweg in Safari auf einem tatsächlich verwalteten Schul-iPad und im Schulnetz erproben. Danach bieten sich ein gemeinsam geprüfter HTTPS-Betrieb und eine Unterrichtserprobung an, bevor weitere Missionen dazukommen.
 
 ## Quellcode und Lizenz

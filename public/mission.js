@@ -1,22 +1,22 @@
 export const mission = [
   {
     title: 'Dein erster Auftrag',
-    instruction: 'Das ist Byte, dein Laborroboter. Bring ihn heute mit einem kurzen Programm in Bewegung.',
-    hints: ['Auf der Bühne siehst du Byte. Im Editor baust du sein Programm.'],
+    instruction: 'Lerne zuerst die Scratch-Oberfläche kennen. Danach bringst du Byte, deinen Laborroboter, mit einem kurzen Programm in Bewegung.',
+    hints: ['Auf der Bühne siehst du Byte. Sein Programm entsteht im Skriptbereich.'],
     action: 'Loslegen'
   },
   {
-    title: 'Erkunde das Labor',
-    instruction: 'Finde die Bühne mit Byte. Tippe unter der Bühne auf die Figur. Suche dann links im Reiter Skripte die blaue Kategorie Bewegung.',
-    hints: ['Auf kleinen Bildschirmen findest du beide Bereiche unter „Editor & Bühne“.', 'Die Bühne zeigt das Ergebnis. Unter Skripte liegen links die Blöcke und daneben die Fläche für dein Programm.'],
-    action: 'Gefunden'
+    title: 'Lerne die Scratch-Oberfläche kennen',
+    instruction: 'Wähle einen Bereich, um ihn im Scratch-Editor zu markieren. Finde danach heraus, wo dein Programm entsteht.',
+    hints: ['Die Skriptblöcke sind einzelne Befehle. In der Blockpalette findest du sie nach Kategorien sortiert.', 'Die freie Fläche rechts neben der Blockpalette ist der Skriptbereich. Dort setzt du die Blöcke zusammen.'],
+    action: 'Zum ersten Block'
   },
   {
     title: 'Bewege Byte',
-    instruction: 'Ziehe „gehe 10 er Schritt“ aus Bewegung auf die freie Codefläche. Tippe einmal auf den Block und beobachte Byte.',
+    instruction: 'Öffne den Reiter Skripte und die blaue Kategorie Bewegung. Ziehe „gehe 10 er Schritt“ aus der Blockpalette in den Skriptbereich. Tippe dort auf den Block und beobachte Byte auf der Bühne.',
     hints: ['Der Block steht weit oben in der blauen Kategorie Bewegung.', 'Öffne für die Tastaturbedienung „Mit Taste oder Tipp programmieren“. Wähle „Bewegung“ und anschließend „Einzelblock testen“.'],
     check: 'move',
-    wait: 'Lege zuerst einen Geh-Block auf die Codefläche einer Figur.',
+    wait: 'Ziehe zuerst einen Geh-Block in den Skriptbereich einer Figur.',
     success: 'Dein Bewegungsblock ist da.'
   },
   {
@@ -44,4 +44,11 @@ export const mission = [
     success: 'Mission geschafft. Byte kann laufen und sich drehen.',
     action: 'Mission abschließen'
   }
+];
+
+export const areas = [
+  { id: 'stage', name: 'Bühne', description: 'Hier siehst du, was dein Programm macht.' },
+  { id: 'sprites', name: 'Figurenliste', description: 'Wähle hier Byte aus. Jede Figur hat ihre eigenen Skripte.' },
+  { id: 'blocks', name: 'Blockpalette', description: 'Hier findest du die Skriptblöcke. Jeder Block steht für einen Befehl oder einen Teil des Programms.' },
+  { id: 'scripts', name: 'Skriptbereich', description: 'Hier setzt du Blöcke zu einem Skript zusammen. Ein Skript ist eine Folge von Befehlen.' }
 ];
